@@ -5,8 +5,6 @@ import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 function UserGuesses({ guesses, currentGuess }) {
   const maxEmptyRows = NUM_OF_GUESSES_ALLOWED - currentGuess;
 
-  console.log(guesses);
-
   return (
     <div className="guess-results">
       {guesses.map((item) => (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function GameInput({ newGuess }) {
+function GameInput({ newGuess, isGameDone }) {
   const [guessValue, setGuessValue] = useState("");
 
   function validateGuess(event) {
@@ -17,6 +17,7 @@ function GameInput({ newGuess }) {
         type="text"
         value={guessValue}
         required
+        disabled={isGameDone}
         pattern=".{5,}"
         minLength={5}
         maxLength={5}

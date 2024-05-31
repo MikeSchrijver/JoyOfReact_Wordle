@@ -16,6 +16,7 @@ console.info({ answer });
 function Game() {
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState(0);
+  const [isGameDone, setGameDone] = useState(false);
   const [hasWon, setHasWon] = useState(false);
 
   function newGuess(guess) {
@@ -35,20 +36,27 @@ function Game() {
     const nextCurrentGuessAmount = currentGuess + 1;
     setCurrentGuess(nextCurrentGuessAmount);
 
+    if (NUM_OF_GUESSES_ALLOWED === nextCurrentGuessAmount) {
+      setGameDone(true);
+    }
+
     if (validationResult.every((letter) => letter.status === "correct")) {
-      console.log("yeaaa");
+      setGameDone(true);
       setHasWon(true);
-    } else {
-      console.log(NUM_OF_GUESSES_ALLOWED === currentGuess + 1);
     }
   }
 
   return (
     <>
       <UserGuesses guesses={guesses} currentGuess={currentGuess} />
-      <GameInput newGuess={newGuess} />
-      {NUM_OF_GUESSES_ALLOWED === currentGuess ||
-        (hasWon && <Banner currentGuess={currentGuess} hasWon={hasWon} />)}
+      <GameInput newGuess={newGuess} isGameDone={isGameDone} />
+      {isGameDone && (
+        <Banner
+          currentGuessAmount={currentGuess}
+          hasWon={hasWon}
+          answer={answer}
+        />
+      )}
     </>
   );
 }
